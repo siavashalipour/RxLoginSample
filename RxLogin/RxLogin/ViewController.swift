@@ -12,34 +12,60 @@ import RxCocoa
 import SwiftyJSON
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     
+    @IBOutlet weak var nameLabel: UILabel!
+    let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let usernameObserver = username.rx.controlEvent(.editingDidEndOnExit).asObservable()
+            .map({
+                self.username.text
+            })
         let passwordObserver = password.rx.controlEvent(.editingDidEndOnExit).asObservable()
-
+            .map({
+                self.password.text
+            })
+        let loginObserver = Observable.combineLatest(usernameObserver,passwordObserver) { (username: $0, password: $1) }
+            .filter {
+                (($0.username ?? "").characters.count > 0) &&
+                    (($0.password ?? "").characters.count > 0)
+        }
+        
+        let flatMapLoginObserver = loginObserver.flatMapLatest {
+            return LoginAPI.shared.doLoginWith(username: $0!, password: $1!).catchErrorJustReturn(LoginAPI.Account.empty)
+            }.asDriver(onErrorJustReturn: LoginAPI.Account.empty)
+        
+        flatMapLoginObserver
+            .map {"\($0.name)"}
+            .drive(nameLabel.rx.text)
+            .disposed(by: bag)
+        
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }
 
-struct Account {
-    let name: String
-    let address: String
-    let phone: String
-}
+
 
 class LoginAPI {
-    
+    struct Account {
+        let name: String
+        let address: String
+        let phone: String
+        
+        static let empty = Account(name: "", address: "", phone: "")
+    }
+    static var shared: LoginAPI {
+        return LoginAPI()
+    }
     func doLoginWith(username: String, password: String) -> Observable<Account> {
         return buildLoginRequestWith(username: username, password: password).map({ json in
             return Account(name: json[""].string ?? "",
