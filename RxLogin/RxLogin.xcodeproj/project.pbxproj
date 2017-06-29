@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7CBDF5541F04A0BF00B02E37 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBDF5531F04A0BF00B02E37 /* LoginViewModel.swift */; };
+		7CBDF5561F04B00E00B02E37 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBDF5551F04B00E00B02E37 /* LoginService.swift */; };
 		7CD362121EF24066007CF810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD362111EF24066007CF810 /* AppDelegate.swift */; };
 		7CD362141EF24066007CF810 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD362131EF24066007CF810 /* ViewController.swift */; };
 		7CD362171EF24066007CF810 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD362151EF24066007CF810 /* Main.storyboard */; };
@@ -17,6 +19,8 @@
 
 /* Begin PBXFileReference section */
 		45C1FFFFA69554B9CF9FD606 /* Pods-RxLogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxLogin.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxLogin/Pods-RxLogin.release.xcconfig"; sourceTree = "<group>"; };
+		7CBDF5531F04A0BF00B02E37 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		7CBDF5551F04B00E00B02E37 /* LoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		7CD3620E1EF24066007CF810 /* RxLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD362111EF24066007CF810 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD362131EF24066007CF810 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 			children = (
 				7CD362111EF24066007CF810 /* AppDelegate.swift */,
 				7CD362131EF24066007CF810 /* ViewController.swift */,
+				7CBDF5531F04A0BF00B02E37 /* LoginViewModel.swift */,
+				7CBDF5551F04B00E00B02E37 /* LoginService.swift */,
 				7CD362151EF24066007CF810 /* Main.storyboard */,
 				7CD362181EF24066007CF810 /* Assets.xcassets */,
 				7CD3621A1EF24066007CF810 /* LaunchScreen.storyboard */,
@@ -214,6 +220,8 @@
 			files = (
 				7CD362141EF24066007CF810 /* ViewController.swift in Sources */,
 				7CD362121EF24066007CF810 /* AppDelegate.swift in Sources */,
+				7CBDF5541F04A0BF00B02E37 /* LoginViewModel.swift in Sources */,
+				7CBDF5561F04B00E00B02E37 /* LoginService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +389,7 @@
 				7CD362221EF24066007CF810 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

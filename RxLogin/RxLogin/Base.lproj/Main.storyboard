@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -35,10 +35,13 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ygd-Jf-yWZ">
                                 <rect key="frame" x="16" y="188" width="343" height="40"/>
+                                <color key="backgroundColor" red="0.2588235438" green="0.75686275960000005" blue="0.96862745289999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="zSH-gG-msc"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BLz-lI-NyO">
                                 <rect key="frame" x="8" y="260" width="359" height="21"/>
@@ -46,14 +49,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8Rd-5S-BF2">
+                                <rect key="frame" x="177" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="8Rd-5S-BF2" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0ql-le-6Ph"/>
                             <constraint firstItem="ygd-Jf-yWZ" firstAttribute="top" secondItem="jf7-EO-Yql" secondAttribute="bottom" constant="41" id="9vt-bs-maS"/>
                             <constraint firstItem="jf7-EO-Yql" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="A1f-Kb-OSi"/>
                             <constraint firstItem="jf7-EO-Yql" firstAttribute="top" secondItem="2s5-Ph-hyV" secondAttribute="bottom" constant="16" id="Aaf-xP-uPO"/>
                             <constraint firstItem="BLz-lI-NyO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="BgF-Lk-qVn"/>
                             <constraint firstItem="2s5-Ph-hyV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="QvU-Xq-sZQ"/>
+                            <constraint firstItem="8Rd-5S-BF2" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="bci-a8-hGY"/>
                             <constraint firstAttribute="trailing" secondItem="ygd-Jf-yWZ" secondAttribute="trailing" constant="16" id="hzq-Hh-71g"/>
                             <constraint firstAttribute="trailing" secondItem="2s5-Ph-hyV" secondAttribute="trailing" constant="16" id="iOf-fY-CgA"/>
                             <constraint firstItem="ygd-Jf-yWZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="q8o-yd-Ekb"/>
@@ -64,8 +72,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loginBtn" destination="ygd-Jf-yWZ" id="1Of-kk-04Q"/>
                         <outlet property="nameLabel" destination="BLz-lI-NyO" id="58Q-Ra-cWj"/>
                         <outlet property="password" destination="jf7-EO-Yql" id="HLM-DF-y0A"/>
+                        <outlet property="spinner" destination="8Rd-5S-BF2" id="wRc-Nq-hH7"/>
                         <outlet property="username" destination="2s5-Ph-hyV" id="212-hq-U4R"/>
                     </connections>
                 </viewController>

@@ -17,34 +17,54 @@ class ViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var loginBtn: UIButton!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
+    
     let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let usernameObserver = username.rx.controlEvent(.editingDidEndOnExit).asObservable()
-            .map({
-                self.username.text
-            })
-        let passwordObserver = password.rx.controlEvent(.editingDidEndOnExit).asObservable()
-            .map({
-                self.password.text
-            })
-        let loginObserver = Observable.combineLatest(usernameObserver,passwordObserver) { (username: $0, password: $1) }
-            .filter {
-                (($0.username ?? "").characters.count > 0) &&
-                    (($0.password ?? "").characters.count > 0)
+        loginBtn.setTitleColor(.white, for: .normal)
+        loginBtn.setTitleColor(.lightGray, for: .disabled)
+        
+        let vm = LoginViewModel.init(email: username.rx.text.orEmpty.asDriver(), password: password.rx.text.orEmpty.asDriver())
+        
+        vm.credintialValid
+        .drive(onNext: { (valid) in
+            self.loginBtn.isEnabled = valid
+        })
+        .addDisposableTo(bag)
+        loginBtn.rx.tap
+            .withLatestFrom(vm.credintialValid)
+            .filter{ $0 }
+            .flatMapLatest { [unowned self] valid -> Observable<AuthenticationStatus> in
+                vm.login(with: self.username.text!, password: self.password.text!)
+                .trackActivity(vm.activity)
+                .observeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
         }
-        
-        let flatMapLoginObserver = loginObserver.flatMapLatest {
-            return LoginAPI.shared.doLoginWith(username: $0!, password: $1!).catchErrorJustReturn(LoginAPI.Account.empty)
-            }.asDriver(onErrorJustReturn: LoginAPI.Account.empty)
-        
-        flatMapLoginObserver
-            .map {"\($0.name)"}
-            .drive(nameLabel.rx.text)
-            .disposed(by: bag)
-        
+        .observeOn(MainScheduler.instance)
+        .subscribe(onNext: { [unowned self] autenticationStatus in
+                switch autenticationStatus {
+                case .none:
+                    break
+                case .authorise(let ac):
+                    print("\(ac.firstName) - \(ac.lastName)")
+                    self.nameLabel.text = ("\(ac.firstName) - \(ac.lastName)")
+                    break
+                case .error(let error):
+                    self.nameLabel.text = "Error \(error)"
+                    print(error)
+                }
+            })
+        .addDisposableTo(bag)
+        vm.activity
+            .distinctUntilChanged()
+            .drive(onNext: { [unowned self] active in
+                self.spinner.isHidden = !active
+            })
+            .addDisposableTo(bag)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
